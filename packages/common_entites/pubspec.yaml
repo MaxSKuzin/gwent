@@ -1,0 +1,14 @@
+name: common_entites
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  collection: ^1.19.1
+
+dev_dependencies:
+  lints: ^6.0.0
+  flutter_lints: 6.0.0
