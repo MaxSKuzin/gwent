@@ -39,11 +39,7 @@ class ExcecutionCard extends SpecialCard {
     for (final card in [...cards, ...enemyCards]) {
       final cardStrength = card.calcStrength(
         field: field,
-        zone: zone,
-        player: switch (player) {
-          Player.player1 => Player.player2,
-          Player.player2 => Player.player1,
-        },
+        player: player,
       );
 
       stongestCardValue ??= cardStrength;
@@ -58,7 +54,6 @@ class ExcecutionCard extends SpecialCard {
 
         final cardStrength = e.calcStrength(
           field: field,
-          zone: zone,
           player: player,
         );
 
@@ -72,7 +67,6 @@ class ExcecutionCard extends SpecialCard {
 
         final cardStrength = e.calcStrength(
           field: field,
-          zone: zone,
           player: switch (player) {
             Player.player1 => Player.player2,
             Player.player2 => Player.player1,

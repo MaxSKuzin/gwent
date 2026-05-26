@@ -146,7 +146,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 stength: e is SquadCard
                                     ? e.calcStrength(
                                         field: _field,
-                                        zone: zone,
                                         player: Player.player2,
                                       )
                                     : null,
@@ -232,7 +231,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 stength: e is SquadCard
                                     ? e.calcStrength(
                                         field: _field,
-                                        zone: zone,
                                         player: Player.player1,
                                       )
                                     : null,

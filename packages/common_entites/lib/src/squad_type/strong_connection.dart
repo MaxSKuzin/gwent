@@ -2,7 +2,10 @@ import 'package:common_entites/common_entites.dart';
 
 mixin StrongConnection on SquadCard {
   @override
-  int calcStrength({required PlayField field, required CardZone zone, required Player player}) {
+  int calcStrength({
+    required PlayField field,
+    required Player player,
+  }) {
     final zoneEffects = switch (player) {
       Player.player1 => field.player1Zones,
       Player.player2 => field.player2Zones,

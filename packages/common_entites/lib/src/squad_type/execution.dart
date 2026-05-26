@@ -26,7 +26,6 @@ mixin Execution on SquadCard {
     for (final card in enemyCards.where((e) => e.zone == zone)) {
       final cardStrength = card.calcStrength(
         field: field,
-        zone: zone,
         player: switch (player) {
           Player.player1 => Player.player2,
           Player.player2 => Player.player1,
@@ -47,7 +46,6 @@ mixin Execution on SquadCard {
 
         final cardStrength = e.calcStrength(
           field: field,
-          zone: zone,
           player: player,
         );
 
@@ -61,7 +59,6 @@ mixin Execution on SquadCard {
 
         final cardStrength = e.calcStrength(
           field: field,
-          zone: zone,
           player: switch (player) {
             Player.player1 => Player.player2,
             Player.player2 => Player.player1,

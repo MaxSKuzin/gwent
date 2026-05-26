@@ -17,7 +17,6 @@ abstract class SquadCard extends ZonedCard {
 
   int calcStrength({
     required PlayField field,
-    required CardZone zone,
     required Player player,
   }) {
     final zoneEffects = switch (player) {

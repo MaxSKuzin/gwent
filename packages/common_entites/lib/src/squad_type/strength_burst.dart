@@ -20,7 +20,6 @@ mixin StrengthBurst on SquadCard {
   @override
   int calcStrength({
     required PlayField field,
-    required CardZone zone,
     required Player player,
   }) {
     final zoneEffects = switch (player) {

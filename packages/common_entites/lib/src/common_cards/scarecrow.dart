@@ -49,7 +49,6 @@ class Scarecrow extends SquadCard {
   @override
   int calcStrength({
     required PlayField field,
-    required CardZone zone,
     required Player player,
   }) => 0;
 }
