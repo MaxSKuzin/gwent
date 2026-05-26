@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:common_entites/common_entites.dart';
+import 'package:common_entites/src/squad_type/squad_modifier.dart';
 import 'package:common_entites/src/weather_effect.dart';
 
 part 'squad_card.dart';

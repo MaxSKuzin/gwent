@@ -1,6 +1,6 @@
 import 'package:common_entites/common_entites.dart';
 
-class Lutik extends SquadCard with CommandersHorn {
+class Lutik extends SquadCard {
   Lutik({
     required super.id,
   }) : super(
@@ -10,6 +10,6 @@ class Lutik extends SquadCard with CommandersHorn {
          special: false,
          availableZones: [CardZone.melee],
          ability: 'Командирский рог',
+         modifier: CommandersHorn(),
        );
-       
 }

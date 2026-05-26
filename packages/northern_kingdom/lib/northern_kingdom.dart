@@ -7,3 +7,4 @@ export 'src/squads/olgert_fon_everek.dart';
 export 'src/squads/taler.dart';
 export 'src/squads/villentretenmert.dart';
 export 'src/squads/zoltan_hivay.dart';
+export 'src/common/gunter_aspect.dart';

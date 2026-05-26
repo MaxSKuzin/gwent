@@ -13,6 +13,7 @@ class Scarecrow extends SquadCard {
          baseStrength: 0,
          special: false,
          zone: null,
+         modifier: null,
        );
 
   @override

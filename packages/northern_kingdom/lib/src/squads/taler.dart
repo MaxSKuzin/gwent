@@ -1,6 +1,6 @@
 import 'package:common_entites/common_entites.dart';
 
-class Taler extends SquadCard with Spy {
+class Taler extends SquadCard {
   Taler({
     required super.id,
   }) : super(
@@ -10,5 +10,6 @@ class Taler extends SquadCard with Spy {
          special: false,
          availableZones: [CardZone.siege],
          ability: null,
+         modifier: Spy(),
        );
 }

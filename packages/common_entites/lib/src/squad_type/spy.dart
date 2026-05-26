@@ -1,11 +1,13 @@
 import 'package:common_entites/common_entites.dart';
+import 'package:common_entites/src/squad_type/squad_modifier.dart';
 
-mixin Spy on SquadCard {
+class Spy extends SquadModifier {
   @override
   bool play({
     required PlayField field,
     required CardZone zone,
     required Player player,
+    required SquadCard card,
   }) {
     final (playerHand, playerDeck, oppositeCards) = switch (player) {
       Player.player1 => (
@@ -20,8 +22,8 @@ mixin Spy on SquadCard {
       ),
     };
 
-    oppositeCards.add(this);
-    playerHand.remove(this);
+    oppositeCards.add(card);
+    playerHand.remove(card);
 
     final newCards = playerDeck.take(2).toList();
     for (final card in newCards) {

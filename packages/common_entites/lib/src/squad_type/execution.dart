@@ -1,13 +1,15 @@
 import 'dart:math';
 
 import 'package:common_entites/common_entites.dart';
+import 'package:common_entites/src/squad_type/squad_modifier.dart';
 
-mixin Execution on SquadCard {
+class Execution extends SquadModifier {
   @override
   bool play({
     required PlayField field,
     required CardZone zone,
     required Player player,
+    required SquadCard card,
   }) {
     final (cards, enemyCards) = switch (player) {
       Player.player1 => (

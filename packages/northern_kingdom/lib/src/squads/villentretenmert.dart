@@ -1,6 +1,6 @@
 import 'package:common_entites/common_entites.dart';
 
-class Villentretenmert extends SquadCard with Execution {
+class Villentretenmert extends SquadCard {
   Villentretenmert({
     required super.id,
   }) : super(
@@ -10,5 +10,6 @@ class Villentretenmert extends SquadCard with Execution {
          special: false,
          availableZones: [CardZone.melee],
          ability: 'Казнь',
+         modifier: Execution(),
        );
 }

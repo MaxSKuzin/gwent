@@ -1,17 +1,17 @@
-import 'dart:async';
-
 import 'package:common_entites/src/card_zone.dart';
 import 'package:common_entites/src/field_effect.dart';
 import 'package:common_entites/src/play_field.dart';
 import 'package:common_entites/src/player.dart';
+import 'package:common_entites/src/squad_type/squad_modifier.dart';
 import 'package:common_entites/src/zoned_card.dart';
 
-mixin CommandersHorn on SquadCard {
+class CommandersHorn extends SquadModifier {
   @override
   bool play({
     required PlayField field,
     required CardZone zone,
     required Player player,
+    required SquadCard card,
   }) {
     final zoneField = switch (player) {
       Player.player1 => field.player1Zones,
@@ -27,13 +27,14 @@ mixin CommandersHorn on SquadCard {
   int calcStrength({
     required PlayField field,
     required Player player,
+    required SquadCard card,
   }) {
     final zoneEffects = switch (player) {
       Player.player1 => field.player1Zones,
       Player.player2 => field.player2Zones,
-    }.firstWhere((e) => e.zone == zone).effectsByPriority;
+    }.firstWhere((e) => e.zone == card.zone).effectsByPriority;
 
-    int strength = baseStrength;
+    int strength = card.baseStrength;
 
     for (final effect in zoneEffects) {
       switch (effect) {
@@ -50,15 +51,16 @@ mixin CommandersHorn on SquadCard {
   }
 
   @override
-  FutureOr<void> remove(
-    PlayField field,
-    Player player, {
+  void remove({
+    required PlayField field,
+    required Player player,
+    required SquadCard card,
     bool goesToShash = true,
   }) {
     final zoneField = switch (player) {
       Player.player1 => field.player1Zones,
       Player.player2 => field.player2Zones,
-    }.firstWhere((e) => e.zone == zone);
+    }.firstWhere((e) => e.zone == card.zone);
 
     zoneField.effects.remove(FieldEffect.boost);
   }

@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:common_entites/common_entites.dart';
+import 'package:common_entites/src/squad_type/squad_modifier.dart';
 
-mixin Bait on SquadCard {
+class Bait extends SquadModifier {
   @override
-  FutureOr<void> remove(
-    PlayField field,
-    Player player, {
+  FutureOr<bool?> remove({
+    required PlayField field,
+    required Player player,
+    required SquadCard card,
     bool goesToShash = true,
-  }) {
-    
-  }
+  }) => null;
 }

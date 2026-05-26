@@ -1,6 +1,6 @@
 import 'package:common_entites/common_entites.dart';
 
-class OlgertFonEverek extends SquadCard with StrengthBurst {
+class OlgertFonEverek extends SquadCard {
   OlgertFonEverek({
     required super.id,
   }) : super(
@@ -13,5 +13,6 @@ class OlgertFonEverek extends SquadCard with StrengthBurst {
            CardZone.ranged,
          ],
          ability: 'Прилив сил',
+         modifier: StrengthBurst(),
        );
 }

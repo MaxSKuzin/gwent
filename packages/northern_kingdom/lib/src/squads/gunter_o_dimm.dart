@@ -1,7 +1,7 @@
 import 'package:common_entites/common_entites.dart';
 import 'package:northern_kingdom/src/common/gunter_aspect.dart';
 
-class GunterODimm extends SquadCard with Sibling<GunterAspectBase> {
+class GunterODimm extends SquadCard {
   GunterODimm({
     required super.id,
   }) : super(
@@ -11,8 +11,6 @@ class GunterODimm extends SquadCard with Sibling<GunterAspectBase> {
          special: false,
          availableZones: [CardZone.siege],
          ability: 'Двойник',
+         modifier: Sibling(aspect: GunterAspectBase()),
        );
-
-  @override
-  GunterAspectBase get aspect => GunterAspectBase();
 }

@@ -1,14 +1,28 @@
 import 'package:collection/collection.dart';
 import 'package:common_entites/common_entites.dart';
 import 'package:flutter/material.dart';
+import 'package:gwent/card_parser.dart';
 import 'package:northern_kingdom/northern_kingdom.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final a = CardParser();
+  final cards = await a.parseConfig();
+  runApp(
+    MyApp(
+      cards: cards,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final List<SquadCard> cards;
+
+  const MyApp({
+    super.key,
+    required this.cards,
+  });
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -16,14 +30,21 @@ class MyApp extends StatelessWidget {
     theme: ThemeData(
       colorScheme: .fromSeed(seedColor: Colors.deepPurple),
     ),
-    home: const MyHomePage(
+    home: MyHomePage(
       title: 'Flutter Demo Home Page',
+      cards: cards,
     ),
   );
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  final List<SquadCard> cards;
+
+  const MyHomePage({
+    super.key,
+    required this.title,
+    required this.cards,
+  });
 
   final String title;
 
@@ -33,42 +54,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late final _field = PlayField(
-    player1Hand: [
-      ZoltanHivay(id: 0),
-      Taler(id: 7),
-      BrownBannerHealer(id: 8),
-      OlgertFonEverek(id: 9),
-      Villentretenmert(id: 13),
-      ExcecutionCard(id: 14),
-      CommandersHornCard(id: 15),
-      Lutik(id: 16),
-      // ChoppersFromKrinfrid(id: 1),
-      // ChoppersFromKrinfrid(id: 2),
-      // ChoppersFromKrinfrid(id: 3),
-      RainCard(
-        id: 4,
-        player: Player.player1,
-      ),
-      ShineCard(
-        id: 5,
-        player: Player.player1,
-      ),
-      MistCard(
-        id: 18,
-        player: Player.player1,
-      ),
-      FrostCard(
-        id: 19,
-        player: Player.player1,
-      ),
-      Scarecrow(id: 17),
-    ],
-    player1Deck: [
-      GunterODimmDarkness(id: 1),
-      GunterODimm(id: 6),
-      GunterODimmDarkness(id: 2),
-      GunterODimmDarkness(id: 3),
-    ],
+    player1Hand: widget.cards,
+    player1Deck: [],
     player2Cards: [
       ZoltanHivay(id: 10)..zone = CardZone.melee,
       ZoltanHivay(id: 11)..zone = CardZone.melee,

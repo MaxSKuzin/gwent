@@ -1,6 +1,6 @@
 import 'package:common_entites/common_entites.dart';
 
-class ChoppersFromKrinfrid extends SquadCard with StrongConnection {
+class ChoppersFromKrinfrid extends SquadCard {
   ChoppersFromKrinfrid({
     required super.id,
   }) : super(
@@ -10,5 +10,6 @@ class ChoppersFromKrinfrid extends SquadCard with StrongConnection {
          special: false,
          availableZones: [CardZone.ranged],
          ability: 'Прочная связь',
+         modifier: StrongConnection(),
        );
 }

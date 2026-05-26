@@ -1,6 +1,6 @@
 import 'package:common_entites/common_entites.dart';
 
-class BrownBannerHealer extends SquadCard with Medic {
+class BrownBannerHealer extends SquadCard {
   BrownBannerHealer({
     required super.id,
   }) : super(
@@ -10,5 +10,6 @@ class BrownBannerHealer extends SquadCard with Medic {
          special: false,
          availableZones: [CardZone.ranged],
          ability: 'Медик',
+         modifier: Medic(),
        );
 }

@@ -1,11 +1,13 @@
 import 'package:common_entites/common_entites.dart';
+import 'package:common_entites/src/squad_type/squad_modifier.dart';
 
-mixin StrengthBurst on SquadCard {
+class StrengthBurst extends SquadModifier {
   @override
   bool play({
     required PlayField field,
     required CardZone zone,
     required Player player,
+    required SquadCard card,
   }) {
     final fieldZone = switch (player) {
       Player.player1 => field.player1Zones,
@@ -20,14 +22,15 @@ mixin StrengthBurst on SquadCard {
   @override
   int calcStrength({
     required PlayField field,
+    required SquadCard card,
     required Player player,
   }) {
     final zoneEffects = switch (player) {
       Player.player1 => field.player1Zones,
       Player.player2 => field.player2Zones,
-    }.firstWhere((e) => e.zone == zone).effectsByPriority;
+    }.firstWhere((e) => e.zone == card.zone).effectsByPriority;
 
-    int strength = baseStrength;
+    int strength = card.baseStrength;
 
     for (final effect in zoneEffects) {
       switch (effect) {
@@ -44,20 +47,21 @@ mixin StrengthBurst on SquadCard {
   }
 
   @override
-  void remove(
-    PlayField field,
-    Player player, {
+  void remove({
+    required PlayField field,
+    required Player player,
     bool goesToShash = true,
+    required SquadCard card,
   }) {
     final fieldZone = switch (player) {
       Player.player1 => field.player1Zones,
       Player.player2 => field.player2Zones,
-    }.firstWhere((e) => e.zone == zone);
+    }.firstWhere((e) => e.zone == card.zone);
 
     final burstingCards = switch (player) {
       Player.player1 => field.player1Cards,
       Player.player2 => field.player2Cards,
-    }.where((e) => e.zone == zone && e is StrengthBurst);
+    }.where((e) => e.zone == card.zone && e is StrengthBurst);
 
     if (burstingCards.isEmpty) {
       fieldZone.effects.remove(FieldEffect.plusOne);

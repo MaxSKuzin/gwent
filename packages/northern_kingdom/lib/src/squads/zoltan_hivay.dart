@@ -10,5 +10,6 @@ class ZoltanHivay extends SquadCard {
          special: false,
          availableZones: [CardZone.melee],
          ability: null,
+         modifier: null,
        );
 }

@@ -1,13 +1,19 @@
 import 'package:common_entites/common_entites.dart';
+import 'package:common_entites/src/squad_type/squad_modifier.dart';
 
-mixin Sibling<T extends Object> on SquadCard {
-  T get aspect;
+class Sibling<T extends Object> extends SquadModifier {
+  final T aspect;
+
+  Sibling({
+    required this.aspect,
+  });
 
   @override
   bool play({
     required PlayField field,
     required CardZone zone,
     required Player player,
+    required SquadCard card,
   }) {
     final hand = switch (player) {
       Player.player1 => field.player1Hand,
@@ -19,14 +25,20 @@ mixin Sibling<T extends Object> on SquadCard {
       Player.player2 => field.player2Deck,
     };
 
-    final similarCards = [...hand, ...deck]
-        .where(
-          (e) => e is Sibling && e.aspect is T && e.id != id,
-        )
-        .toList();
+    final similarCards = [...hand, ...deck].whereType<SquadCard>().where(
+      (e) {
+        final modifier = e.modifier;
+
+        if (modifier is! Sibling) {
+          return false;
+        }
+
+        return modifier.aspect is T && e.id != card.id;
+      },
+    ).toList();
 
     for (final card in similarCards) {
-      final zone = (card as SquadCard).availableZones.first;
+      final zone = card.availableZones.first;
 
       field.playSquadCard(
         card,
