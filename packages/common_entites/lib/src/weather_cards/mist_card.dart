@@ -4,7 +4,6 @@ import 'package:common_entites/src/weather_effect.dart';
 class MistCard extends WeatherCard {
   MistCard({
     required super.id,
-    required super.player,
   }) : super(
          name: 'Мгла',
          description: 'Вот туман-то... хоть глаз выколи',

@@ -1,8 +1,8 @@
 import 'package:common_entites/common_entites.dart';
 import 'package:common_entites/src/squad_type/squad_modifier.dart';
 
-class Sibling<T extends Object> extends SquadModifier {
-  final T aspect;
+class Sibling extends SquadModifier {
+  final String aspect;
 
   Sibling({
     required this.aspect,
@@ -33,7 +33,7 @@ class Sibling<T extends Object> extends SquadModifier {
           return false;
         }
 
-        return modifier.aspect is T && e.id != card.id;
+        return modifier.aspect.toLowerCase().contains(aspect.toLowerCase()) && e.id != card.id;
       },
     ).toList();
 

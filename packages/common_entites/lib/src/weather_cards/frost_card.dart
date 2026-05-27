@@ -4,7 +4,6 @@ import 'package:common_entites/src/weather_effect.dart';
 class FrostCard extends WeatherCard {
   FrostCard({
     required super.id,
-    required super.player,
   }) : super(
          name: 'Мороз',
          description: 'Мечта хорошего коммандира... кошмар плохого.',

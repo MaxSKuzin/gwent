@@ -4,7 +4,6 @@ import 'package:common_entites/src/weather_effect.dart';
 class ShineCard extends WeatherCard {
   ShineCard({
     required super.id,
-    required super.player,
   }) : super(
          name: 'Ясное небо',
          description: 'Дромил, солнце-то светит! Значит и надежда есть...',

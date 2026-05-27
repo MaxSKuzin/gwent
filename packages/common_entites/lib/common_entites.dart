@@ -1,6 +1,6 @@
 export 'src/card_zone.dart';
-export 'src/common_cards/scarecrow.dart';
 export 'src/core_card.dart';
+export 'src/deck.dart';
 export 'src/field_effect.dart';
 export 'src/leader_card.dart';
 export 'src/play_field.dart';
@@ -10,6 +10,7 @@ export 'src/special_cards/excecution_card.dart';
 export 'src/squad_type/commanders_horn.dart';
 export 'src/squad_type/execution.dart';
 export 'src/squad_type/medic.dart';
+export 'src/squad_type/scarecrow.dart';
 export 'src/squad_type/sibling.dart';
 export 'src/squad_type/spy.dart';
 export 'src/squad_type/strength_burst.dart';

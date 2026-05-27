@@ -13,8 +13,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   common_entites:
     path: ./packages/common_entites
-  northern_kingdom:
-    path: ./packages/northern_kingdom
   collection: ^1.19.1
 
 dev_dependencies:

@@ -2,22 +2,88 @@ import 'dart:convert';
 
 import 'package:common_entites/common_entites.dart';
 import 'package:flutter/services.dart';
-import 'package:northern_kingdom/northern_kingdom.dart';
 
 class CardParser {
+  static const nothernKingdomConfig = 'assets/config/northern_realms_cards_deck.json';
+  static const monstersConfig = 'assets/config/monsters_cards_deck.json';
+  static const nilfgaardianEmpireConfig = 'assets/config/nilfgaardian_empire_cards_deck.json';
+  static const scoiaTaelConfig = 'assets/config/scoia_tael_cards_deck.json';
+
   static int _id = 0;
 
-  Future<List<SquadCard>> parseConfig() async {
-    final rawConfig = await rootBundle.loadString('assets/config/northern_realms_cards_deck.json');
+  Future<Deck> parseDeck(String configPath) async {
+    final rawConfig = await rootBundle.loadString(configPath);
     final config = jsonDecode(rawConfig);
     final squads = config['squad'] as List;
+    final specials = config['special'] as List;
 
-    final cards = squads.cast<Map<String, dynamic>>().map(parse).expand((e) => e).toList();
+    final squadCards = squads
+        .cast<Map<String, dynamic>>()
+        .map(parseSquadCards)
+        .expand(
+          (e) => e,
+        )
+        .toList();
 
-    return cards;
+    final weatherCards = specials
+        .cast<Map<String, dynamic>>()
+        .map(parseWeatherCards)
+        .expand(
+          (e) => e,
+        )
+        .toList();
+
+    final specialCards = specials
+        .cast<Map<String, dynamic>>()
+        .map(parseSpecialCards)
+        .expand(
+          (e) => e,
+        )
+        .toList();
+
+    final name = config['name'] as String;
+
+    return Deck(
+      cards: [
+        ...specialCards,
+        ...weatherCards,
+        ...squadCards,
+      ],
+      name: name,
+    );
   }
 
-  List<SquadCard> parse(Map<String, dynamic> json) {
+  List<SpecialCard> parseSpecialCards(Map<String, dynamic> json) {
+    final cardConstructor = switch (json['abilities'] as String) {
+      'Казнь' => (int id) => ExcecutionCard(id: id),
+      'Командирский рог' => (int id) => CommandersHornCard(id: id),
+      _ => null,
+    };
+    final count = json['count'] as int;
+
+    return List.generate(
+      count,
+      (index) => cardConstructor?.call(_id++),
+    ).nonNulls.toList();
+  }
+
+  List<WeatherCard> parseWeatherCards(Map<String, dynamic> json) {
+    final cardConstructor = switch (json['abilities'] as String) {
+      'Ливень' => (int id) => RainCard(id: id),
+      'Мгла' => (int id) => MistCard(id: id),
+      'Мороз' => (int id) => FrostCard(id: id),
+      'Ясное небо' => (int id) => ShineCard(id: id),
+      _ => null,
+    };
+    final count = json['count'] as int;
+
+    return List.generate(
+      count,
+      (index) => cardConstructor?.call(_id++),
+    ).nonNulls.toList();
+  }
+
+  List<SquadCard> parseSquadCards(Map<String, dynamic> json) {
     final name = json['name'] as String;
     final description = json['description'] as String;
     final zones = switch (json['zone'] as String) {
@@ -25,6 +91,7 @@ class CardParser {
       'Ближний бой' => [CardZone.melee],
       'Осадные' => [CardZone.siege],
       'Ближний бой / Дальний бой' => [CardZone.melee, CardZone.ranged],
+      'Ближний бой / Дальний бой / Осадные' => CardZone.values,
       _ => <CardZone>[],
     };
     final strength = json['strength'] as int;
@@ -37,6 +104,7 @@ class CardParser {
       'Шпион' => Spy(),
       'Двойник' => getSibling(json),
       'Командирский рог' => CommandersHorn(),
+      'Чучело' => Scarecrow(),
       _ => null,
     };
     final special = switch (json['hero'] as String) {
@@ -61,11 +129,7 @@ class CardParser {
   }
 
   Sibling? getSibling(Map<String, dynamic> json) {
-    final aspect = switch (json['aspect'] as String?) {
-      'summon' => GunterAspectSummon(),
-      'base' => GunterAspectBase(),
-      _ => null,
-    };
+    final aspect = json['aspect'] as String?;
 
     if (aspect == null) {
       return null;

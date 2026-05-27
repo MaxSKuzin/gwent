@@ -74,6 +74,7 @@ class PlayField {
   }
 
   Future<void> playWeatherCard(WeatherCard card, Player player) async {
+    card.player = player;
     switch (card.effect) {
       case WeatherEffect.frost:
       case WeatherEffect.rain:
@@ -91,12 +92,13 @@ class PlayField {
         final stash = switch (card.player) {
           Player.player1 => player1Stash,
           Player.player2 => player2Stash,
+          _ => null,
         };
         for (final card in weatherCards) {
-          stash.add(card);
+          stash?.add(card);
         }
         weatherCards.clear();
-        stash.add(card);
+        stash?.add(card);
     }
 
     final hand = switch (player) {

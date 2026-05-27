@@ -2,26 +2,27 @@ import 'package:collection/collection.dart';
 import 'package:common_entites/common_entites.dart';
 import 'package:flutter/material.dart';
 import 'package:gwent/card_parser.dart';
-import 'package:northern_kingdom/northern_kingdom.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final a = CardParser();
-  final cards = await a.parseConfig();
+  final cards = await a.parseDeck(
+    CardParser.scoiaTaelConfig,
+  );
   runApp(
     MyApp(
-      cards: cards,
+      deck: cards,
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final List<SquadCard> cards;
+  final Deck deck;
 
   const MyApp({
     super.key,
-    required this.cards,
+    required this.deck,
   });
 
   @override
@@ -32,18 +33,18 @@ class MyApp extends StatelessWidget {
     ),
     home: MyHomePage(
       title: 'Flutter Demo Home Page',
-      cards: cards,
+      deck: deck,
     ),
   );
 }
 
 class MyHomePage extends StatefulWidget {
-  final List<SquadCard> cards;
+  final Deck deck;
 
   const MyHomePage({
     super.key,
     required this.title,
-    required this.cards,
+    required this.deck,
   });
 
   final String title;
@@ -54,12 +55,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late final _field = PlayField(
-    player1Hand: widget.cards,
+    player1Hand: widget.deck.cards,
     player1Deck: [],
     player2Cards: [
-      ZoltanHivay(id: 10)..zone = CardZone.melee,
-      ZoltanHivay(id: 11)..zone = CardZone.melee,
-      ZoltanHivay(id: 12)..zone = CardZone.melee,
+      // ZoltanHivay(id: 10)..zone = CardZone.melee,
+      // ZoltanHivay(id: 11)..zone = CardZone.melee,
+      // ZoltanHivay(id: 12)..zone = CardZone.melee,
     ],
     player2Hand: [],
     player2Deck: [],

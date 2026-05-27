@@ -4,7 +4,6 @@ import 'package:common_entites/src/weather_effect.dart';
 class RainCard extends WeatherCard {
   RainCard({
     required super.id,
-    required super.player,
   }) : super(
          name: 'Ливень',
          description: 'В этом краю даже дождь смердит мочой',

@@ -1,26 +1,16 @@
-import 'dart:async';
+import 'package:common_entites/src/card_zone.dart';
+import 'package:common_entites/src/play_field.dart';
+import 'package:common_entites/src/player.dart';
+import 'package:common_entites/src/squad_type/squad_modifier.dart';
+import 'package:common_entites/src/zoned_card.dart';
 
-import 'package:common_entites/common_entites.dart';
-
-class Scarecrow extends SquadCard {
-  Scarecrow({
-    required super.id,
-  }) : super(
-         name: 'Чучело',
-         description: 'Пусть стреляют по крестьянам. А нет крестьян - поставьте чучела.',
-         ability: 'Чучело',
-         availableZones: CardZone.values,
-         baseStrength: 0,
-         special: false,
-         zone: null,
-         modifier: null,
-       );
-
+class Scarecrow extends SquadModifier {
   @override
   Future<bool> play({
     required PlayField field,
     required CardZone zone,
     required Player player,
+    required SquadCard card,
   }) async {
     final cards = switch (player) {
       Player.player1 => field.player1Cards,
@@ -51,5 +41,6 @@ class Scarecrow extends SquadCard {
   int calcStrength({
     required PlayField field,
     required Player player,
+    required SquadCard card,
   }) => 0;
 }
